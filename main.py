@@ -49,7 +49,7 @@ if __name__ == '__main__':
                         help='weight decay (default: 0.0)')
     # Pruning Hyperparameters
     pruning_args = parser.add_argument_group('pruning')
-    pruning_args.add_argument('--pruner', type=str, default='rand', 
+    pruning_args.add_argument('--pruner', type=str, default='rand',
                         choices=['rand','mag','snip','grasp','synflow'],
                         help='prune strategy (default: rand)')
     pruning_args.add_argument('--compression', type=float, default=0.0,
@@ -78,6 +78,8 @@ if __name__ == '__main__':
                         help='whether to shuffle masks after pruning (default: False)')
     pruning_args.add_argument('--invert', type=bool, default=False,
                         help='whether to invert scores during pruning (default: False)')
+    pruning_args.add_argument('--norm-fix', type=bool, default=False,
+                        help='whether to fix dynamics of the filter norm (default: False)')
     pruning_args.add_argument('--pruner-list', type=str, nargs='*', default=[],
                         help='list of pruning strategies for singleshot (default: [])')
     pruning_args.add_argument('--prune-epoch-list', type=int, nargs='*', default=[],
@@ -87,7 +89,7 @@ if __name__ == '__main__':
     pruning_args.add_argument('--level-list', type=int, nargs='*', default=[],
                         help='list of number of prune-train cycles (levels) for multishot (default: [])')
     ## Experiment Hyperparameters ##
-    parser.add_argument('--experiment', type=str, default='singleshot', 
+    parser.add_argument('--experiment', type=str, default='singleshot',
                         choices=['singleshot','multishot','unit-conservation',
                         'layer-conservation','imp-conservation','schedule-conservation'],
                         help='experiment name (default: example)')
@@ -143,4 +145,3 @@ if __name__ == '__main__':
         imp_conservation.run(args)
     if args.experiment == 'schedule-conservation':
         schedule_conservation.run(args)
-

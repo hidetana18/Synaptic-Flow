@@ -37,7 +37,7 @@ def run(args):
 
     ## Pre-Train ##
     print('Pre-Train for {} epochs.'.format(args.pre_epochs))
-    pre_result = train_eval_loop(model, model_base, loss, optimizer, scheduler, train_loader,
+    pre_result = train_eval_loop(model, model_base, args.norm_fix, loss, optimizer, scheduler, train_loader,
                                  test_loader, device, args.pre_epochs, args.verbose)
 
     ## Prune ##
@@ -50,7 +50,7 @@ def run(args):
 
     ## Post-Train ##
     print('Post-Training for {} epochs.'.format(args.post_epochs))
-    post_result = train_eval_loop(model, model_base, loss, optimizer, scheduler, train_loader,
+    post_result = train_eval_loop(model, model_base, args.norm_fix, loss, optimizer, scheduler, train_loader,
                                   test_loader, device, args.post_epochs, args.verbose)
 
     ## Display Results ##
