@@ -3,7 +3,27 @@ import pandas as pd
 import numpy as np
 from tqdm import tqdm
 
-def train(model, loss, optimizer, dataloader, device, epoch, verbose, log_interval=10):
+
+import torch.nn as nn
+from torch.nn import functional as F
+from torch.nn import init
+from torch.nn.parameter import Parameter
+from torch.nn.modules.utils import _pair
+#from torch import linalg
+
+
+
+
+def rescale(model, model_base):
+    for mod, mod_base in zip(model.modules(), model_base.modules()):
+        if(isinstance(mod, nn.Conv2d)):
+            print( 'before='+ str( torch.norm(torch.norm(mod.weight, dim=(2,3), keepdim=True), dim=1, keepdim=True)[1]) )
+            mod.weight.data = (mod.weight.data / torch.norm(torch.norm(mod.weight, dim=(2,3), keepdim=True), dim=1, keepdim=True)) * torch.norm(torch.norm(mod_base.weight, dim=(2,3), keepdim=True), dim=1, keepdim=True)
+            print( 'after='+ str( torch.norm(torch.norm(mod.weight, dim=(2,3), keepdim=True), dim=1, keepdim=True)[1]) )
+    print("end!")
+    return model
+
+def train(model, model_base, loss, optimizer, dataloader, device, epoch, verbose, log_interval=10):
     model.train()
     total = 0
     for batch_idx, (data, target) in enumerate(dataloader):
@@ -14,6 +34,10 @@ def train(model, loss, optimizer, dataloader, device, epoch, verbose, log_interv
         total += train_loss.item() * data.size(0)
         train_loss.backward()
         optimizer.step()
+        # Freeze Norm
+        if True:
+            model = rescale(model, model_base)
+
         if verbose & (batch_idx % log_interval == 0):
             print('Train Epoch: {} [{}/{} ({:.0f}%)]\tLoss: {:.6f}'.format(
                 epoch, batch_idx * len(data), len(dataloader.dataset),
@@ -42,16 +66,14 @@ def eval(model, loss, dataloader, device, verbose):
             average_loss, correct1, len(dataloader.dataset), accuracy1))
     return average_loss, accuracy1, accuracy5
 
-def train_eval_loop(model, loss, optimizer, scheduler, train_loader, test_loader, device, epochs, verbose):
+def train_eval_loop(model, model_base, loss, optimizer, scheduler, train_loader, test_loader, device, epochs, verbose):
     test_loss, accuracy1, accuracy5 = eval(model, loss, test_loader, device, verbose)
     rows = [[np.nan, test_loss, accuracy1, accuracy5]]
     for epoch in tqdm(range(epochs)):
-        train_loss = train(model, loss, optimizer, train_loader, device, epoch, verbose)
+        train_loss = train(model, model_base, loss, optimizer, train_loader, device, epoch, verbose)
         test_loss, accuracy1, accuracy5 = eval(model, loss, test_loader, device, verbose)
         row = [train_loss, test_loss, accuracy1, accuracy5]
         scheduler.step()
         rows.append(row)
     columns = ['train_loss', 'test_loss', 'top1_accuracy', 'top5_accuracy']
     return pd.DataFrame(rows, columns=columns)
-
-
