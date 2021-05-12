@@ -9,8 +9,7 @@ from torch.nn import functional as F
 from torch.nn import init
 from torch.nn.parameter import Parameter
 from torch.nn.modules.utils import _pair
-#from torch import linalg
-
+from torch import linalg
 
 
 
@@ -18,10 +17,11 @@ def rescale(model, model_base):
     for mod, mod_base in zip(model.modules(), model_base.modules()):
         if(isinstance(mod, nn.Conv2d)):
             #print( 'before='+ str( torch.norm(torch.norm(mod.weight, dim=(2,3), keepdim=True), dim=1, keepdim=True)[1]) )
-            mod.weight.data = (mod.weight.data / torch.norm(torch.norm(mod.weight, dim=(2,3), keepdim=True), dim=1, keepdim=True)) * torch.norm(torch.norm(mod_base.weight, dim=(2,3), keepdim=True), dim=1, keepdim=True)
+            mod.weight.data = (mod.weight.data / torch.linalg.norm(mod.weight, dim=(1,2,3), keepdim=True)) * torch.linalg.norm(mod_base.weight, dim=(1,2,3), keepdim=True)
             #print( 'after='+ str( torch.norm(torch.norm(mod.weight, dim=(2,3), keepdim=True), dim=1, keepdim=True)[1]) )
-    print("end!")
+    #print('end!')
     return model
+
 
 def train(model, model_base, loss, optimizer, dataloader, device, epoch, verbose, log_interval=10):
     model.train()
