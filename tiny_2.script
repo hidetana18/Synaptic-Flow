@@ -1,3 +1,7 @@
 for lrate in 0.001 0.00179 0.00316 0.00562; do
-        CUDA_VISIBLE_DEVICES=2 python3 main.py --experiment=singleshot --optimizer=momentum --lr=$lrate --train-batch-size=128 --weight-decay=1e-4 --pre-epochs=60 --post-epochs=0 --pruner=mag --prune-epochs=0 --gpu=0 --result-dir=../Data_SynFlow  --expid=tinyimagenet_lottery_60epochs_vgg11_fixed_bn_lr${lrate} --seed=0 --dataset=tiny-imagenet --model-class=tinyimagenet --model=vgg11-bn --compression=0.0 --norm-fix=True
+        CUDA_VISIBLE_DEVICES=2 python3 main.py --experiment=singleshot --optimizer=momentum --lr=$lrate --train-batch-size=128 --weight-decay=1e-4 --pre-epochs=60 --post-epochs=0 --pruner=mag --prune-epochs=0 --gpu=0 --result-dir=../Data_SynFlow  --expid=tinyimagenet_lottery_60epochs_vgg11_fixed_bn_lr${lrate}_seed10 --seed=10 --dataset=tiny-imagenet --model-class=tinyimagenet --model=vgg11-bn --compression=0.0 --norm-fix=True
+done
+
+for lrate in 0.001 0.00179 0.00316 0.00562; do
+        CUDA_VISIBLE_DEVICES=2 python3 main.py --experiment=singleshot --optimizer=momentum --lr=$lrate --train-batch-size=128 --weight-decay=1e-4 --pre-epochs=60 --post-epochs=0 --pruner=mag --prune-epochs=0 --gpu=0 --result-dir=../Data_SynFlow  --expid=tinyimagenet_lottery_60epochs_vgg11_fixed_bn_lr${lrate}_seed100 --seed=100 --dataset=tiny-imagenet --model-class=tinyimagenet --model=vgg11-bn --compression=0.0 --norm-fix=True
 done
