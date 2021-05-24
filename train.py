@@ -22,6 +22,15 @@ def rescale(model, model_base):
     #print('end!')
     return model
 
+def rescale_constant(model, model_base):
+    for mod, mod_base in zip(model.modules(), model_base.modules()):
+        if(isinstance(mod, nn.Conv2d)):
+            #print( 'before='+ str( torch.norm(torch.norm(mod.weight, dim=(2,3), keepdim=True), dim=1, keepdim=True)[1]) )
+            mod.weight.data = 100*mod.weight.data
+            #print( 'after='+ str( torch.norm(torch.norm(mod.weight, dim=(2,3), keepdim=True), dim=1, keepdim=True)[1]) )
+    #print('end!')
+    return model
+
 
 def train(model, model_base, norm_fix, loss, optimizer, dataloader, device, epoch, verbose, log_interval=10):
     model.train()
@@ -67,6 +76,7 @@ def eval(model, loss, dataloader, device, verbose):
     return average_loss, accuracy1, accuracy5
 
 def train_eval_loop(model, model_base, norm_fix, loss, optimizer, scheduler, train_loader, test_loader, device, epochs, verbose):
+    model = rescale_constant(model, model_base)
     test_loss, accuracy1, accuracy5 = eval(model, loss, test_loader, device, verbose)
     rows = [[np.nan, test_loss, accuracy1, accuracy5]]
     for epoch in tqdm(range(epochs)):
