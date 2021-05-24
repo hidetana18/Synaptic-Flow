@@ -26,7 +26,7 @@ def rescale_constant(model, model_base):
     for mod, mod_base in zip(model.modules(), model_base.modules()):
         if(isinstance(mod, nn.Conv2d)):
             #print( 'before='+ str( torch.norm(torch.norm(mod.weight, dim=(2,3), keepdim=True), dim=1, keepdim=True)[1]) )
-            mod.weight.data = 100*mod.weight.data
+            mod.weight.data = 10*mod.weight.data
             #print( 'after='+ str( torch.norm(torch.norm(mod.weight, dim=(2,3), keepdim=True), dim=1, keepdim=True)[1]) )
     #print('end!')
     return model
