@@ -1,0 +1,11 @@
+for lrate in 0.001 0.01 0.1; do 
+	for wdrate in 0.0000316; do
+		CUDA_VISIBLE_DEVICES=1 python3 main.py --experiment=singleshot --optimizer=momentum --lr=$lrate --train-batch-size=128 --weight-decay=$wdrate --pre-epochs=100 --post-epochs=0 --pruner=mag --prune-epochs=0 --gpu=0 --result-dir=../Data_SynFlow  --expid=sweep_tinyimagenet_lottery_100epochs_vgg11_bn_lr${lrate}_wd${wdrate}_seed0 --seed=0 --dataset=tiny-imagenet --model-class=tinyimagenet --model=vgg11-bn --compression=0.0  --lr-drops 30 60 80 
+	done
+done
+
+for lrate in 0.001 0.01 0.1; do 
+	for wdrate in 0.0000316; do
+		CUDA_VISIBLE_DEVICES=1 python3 main.py --experiment=singleshot --optimizer=momentum --lr=$lrate --train-batch-size=128 --weight-decay=$wdrate --pre-epochs=100 --post-epochs=0 --pruner=mag --prune-epochs=0 --gpu=0 --result-dir=../Data_SynFlow  --expid=sweep_tinyimagenet_lottery_100epochs_vgg11_fixed_bn_lr${lrate}_wd${wdrate}_seed0 --seed=0 --dataset=tiny-imagenet --model-class=tinyimagenet --model=vgg11-bn --compression=0.0  --lr-drops 30 60 80 --norm-fix=True
+	done
+done

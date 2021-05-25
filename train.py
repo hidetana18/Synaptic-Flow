@@ -76,7 +76,7 @@ def eval(model, loss, dataloader, device, verbose):
     return average_loss, accuracy1, accuracy5
 
 def train_eval_loop(model, model_base, norm_fix, loss, optimizer, scheduler, train_loader, test_loader, device, epochs, verbose):
-    model = rescale_constant(model, model_base)
+    #model = rescale_constant(model, model_base)
     test_loss, accuracy1, accuracy5 = eval(model, loss, test_loader, device, verbose)
     rows = [[np.nan, test_loss, accuracy1, accuracy5]]
     for epoch in tqdm(range(epochs)):
