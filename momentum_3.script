@@ -1,0 +1,4 @@
+for lrate in 0.1; do
+        CUDA_VISIBLE_DEVICES=3 python3 main.py --experiment=singleshot --optimizer=momentum --lr=$lrate --train-batch-size=128 --weight-decay=1e-4 --pre-epochs=100 --post-epochs=0 --pruner=mag --prune-epochs=0 --gpu=0 --result-dir=../Data_SynFlow  --expid=tinyimagenet_lottery_momentum0.874_100epochs_vgg11_fixed_bn_lr${lrate}_seed0 --seed=0 --dataset=tiny-imagenet --model-class=tinyimagenet --model=vgg11-bn --compression=0.0 --norm-fix=True --lr-drops 30 60 80 
+done
+
