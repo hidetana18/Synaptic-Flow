@@ -29,8 +29,8 @@ if __name__ == '__main__':
                         help='ensure last layer of model is dense (default: False)')
     training_args.add_argument('--pretrained', type=bool, default=False,
                         help='load pretrained weights (default: False)')
-    training_args.add_argument('--optimizer', type=str, default='adam', choices=['sgd','momentum','adam','rms'],
-                        help='optimizer (default: adam)')
+    training_args.add_argument('--optimizer', type=float, default=0.0,
+                        help='optimizer (default: 0.0)')
     training_args.add_argument('--train-batch-size', type=int, default=64,
                         help='input batch size for training (default: 64)')
     training_args.add_argument('--test-batch-size', type=int, default=256,
