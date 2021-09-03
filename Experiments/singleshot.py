@@ -30,7 +30,7 @@ def run(args):
     model_base = copy.deepcopy(model)
     model_base.to(device)
     loss = nn.CrossEntropyLoss()
-    opt_class, opt_kwargs = load.optimizer(args.optimizer)
+    opt_class, opt_kwargs = load.optimizer(args.momentum)
     optimizer = opt_class(generator.parameters(model), lr=args.lr, weight_decay=args.weight_decay, **opt_kwargs)
     scheduler = torch.optim.lr_scheduler.MultiStepLR(optimizer, milestones=args.lr_drops, gamma=args.lr_drop_rate)
 
