@@ -47,7 +47,7 @@ def dataloader(dataset, batch_size, train, workers, length=None):
     if dataset == 'cifar10':
         mean, std = (0.491, 0.482, 0.447), (0.247, 0.243, 0.262)
         transform = get_transform(size=32, padding=4, mean=mean, std=std, preprocess=train)
-        dataset = datasets.CIFAR10('Data', train=train, download=True, transform=transform) 
+        dataset = datasets.CIFAR10('Data', train=train, download=True, transform=transform)
     if dataset == 'cifar100':
         mean, std = (0.507, 0.487, 0.441), (0.267, 0.256, 0.276)
         transform = get_transform(size=32, padding=4, mean=mean, std=std, preprocess=train)
@@ -74,7 +74,7 @@ def dataloader(dataset, batch_size, train, workers, length=None):
                 transforms.Normalize(mean, std)])
         folder = 'Data/imagenet_raw/{}'.format('train' if train else 'val')
         dataset = datasets.ImageFolder(folder, transform=transform)
-    
+
     # Dataloader
     use_cuda = torch.cuda.is_available()
     kwargs = {'num_workers': workers, 'pin_memory': True} if use_cuda else {}
@@ -83,9 +83,9 @@ def dataloader(dataset, batch_size, train, workers, length=None):
         indices = torch.randperm(len(dataset))[:length]
         dataset = torch.utils.data.Subset(dataset, indices)
 
-    dataloader = torch.utils.data.DataLoader(dataset=dataset, 
-                                             batch_size=batch_size, 
-                                             shuffle=shuffle, 
+    dataloader = torch.utils.data.DataLoader(dataset=dataset,
+                                             batch_size=batch_size,
+                                             shuffle=shuffle,
                                              **kwargs)
 
     return dataloader
@@ -174,12 +174,20 @@ def pruner(method):
     }
     return prune_methods[method]
 
-def optimizer(optimizer):
-    optimizers = {
-        'adam' : (optim.Adam, {}),
-        'sgd' : (optim.SGD, {}),
-        'momentum' : (optim.SGD, {'momentum' : 0.9, 'nesterov' : True}),
-        'rms' : (optim.RMSprop, {})
-    }
-    return optimizers[optimizer]
+# def optimizer(optimizer):
+#     optimizers = {
+#         'adam' : (optim.Adam, {}),
+#         'sgd' : (optim.SGD, {}),
+#         'momentum' : (optim.SGD, {'momentum' : 0.9, 'nesterov' : False}),
+#         'rms' : (optim.RMSprop, {})
+#     }
+#     return optimizers[optimizer]
 
+def optimizer(optimizer):
+    # optimizers = {
+    #     'adam' : (optim.Adam, {}),
+    #     'sgd' : (optim.SGD, {}),
+    #     'momentum' : (optim.SGD, {'momentum' : 0.9, 'nesterov' : False}),
+    #     'rms' : (optim.RMSprop, {})
+    # }
+    return (optim.SGD, {'momentum' : optimizer})
