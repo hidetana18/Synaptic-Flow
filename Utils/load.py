@@ -183,11 +183,11 @@ def pruner(method):
 #     }
 #     return optimizers[optimizer]
 
-def optimizer(optimizer):
+def optimizer(momentum):
     # optimizers = {
     #     'adam' : (optim.Adam, {}),
     #     'sgd' : (optim.SGD, {}),
     #     'momentum' : (optim.SGD, {'momentum' : 0.9, 'nesterov' : False}),
     #     'rms' : (optim.RMSprop, {})
     # }
-    return (optim.SGD, {'momentum' : optimizer})
+    return (optim.SGD, {'momentum' : momentum})
