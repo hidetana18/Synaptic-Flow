@@ -1,3 +1,11 @@
 for lrate in 0.001 0.00179 0.00316 0.00562 0.01 0.0179 0.0316 0.0562 0.1; do
-        CUDA_VISIBLE_DEVICES=0 python3 main.py --experiment=singleshot --momentum=0.9 --lr=$lrate --train-batch-size=128 --weight-decay=1e-4 --pre-epochs=100 --post-epochs=0 --pruner=mag --prune-epochs=0 --gpu=0 --result-dir=../Results_Noether  --expid=tinyimagenet_lottery_momentum0.9_100epochs_vgg11_bn_lr${lrate}_seed0 --seed=0 --dataset=tiny-imagenet --model-class=tinyimagenet --model=vgg11-bn --compression=0.0
+        CUDA_VISIBLE_DEVICES=0 python3 main.py --experiment=singleshot --momentum=0.9 --lr=$lrate --train-batch-size=128 --weight-decay=1e-4 --pre-epochs=100 --post-epochs=0 --pruner=mag --prune-epochs=0 --gpu=0 --result-dir=../Results_Noether  --expid=tinyimagenet_lottery_momentum0.9_100epochs_vgg11_bn_constantlr${lrate}_seed0 --seed=0 --dataset=tiny-imagenet --model-class=tinyimagenet --model=vgg11-bn --compression=0.0
+done
+
+for lrate in 0.001 0.00179 0.00316 0.00562 0.01 0.0179 0.0316 0.0562 0.1; do
+        CUDA_VISIBLE_DEVICES=0 python3 main.py --experiment=singleshot --momentum=0.9 --lr=$lrate --train-batch-size=128 --weight-decay=1e-4 --pre-epochs=100 --post-epochs=0 --pruner=mag --prune-epochs=0 --gpu=0 --result-dir=../Results_Noether  --expid=tinyimagenet_lottery_momentum0.9_100epochs_vgg11_bn_constantlr${lrate}_seed10 --seed=10 --dataset=tiny-imagenet --model-class=tinyimagenet --model=vgg11-bn --compression=0.0
+done
+
+for lrate in 0.001 0.00179 0.00316 0.00562 0.01 0.0179 0.0316 0.0562 0.1; do
+        CUDA_VISIBLE_DEVICES=0 python3 main.py --experiment=singleshot --momentum=0.9 --lr=$lrate --train-batch-size=128 --weight-decay=1e-4 --pre-epochs=100 --post-epochs=0 --pruner=mag --prune-epochs=2 --gpu=0 --result-dir=../Results_Noether  --expid=tinyimagenet_lottery_momentum0.9_100epochs_vgg11_bn_constantlr${lrate}_seed100 --seed=100 --dataset=tiny-imagenet --model-class=tinyimagenet --model=vgg11-bn --compression=0.0
 done
