@@ -1,11 +1,11 @@
 for wd in 0.00001 0.0000316 0.0001 0.000316; do
-        CUDA_VISIBLE_DEVICES=3 python3 main.py --experiment=singleshot --momentum=0.9 --lr=0.1 --train-batch-size=128 --weight-decay=wd --pre-epochs=100 --post-epochs=0 --pruner=mag --prune-epochs=0 --gpu=0 --result-dir=../Results_Noether --expid=tinyimagenet_lottery_momentum0.9_100epochs_vgg11_fixed_bn_lr0.1_wd${wd}_seed0 --seed=0 --dataset=tiny-imagenet --model-class=tinyimagenet --model=vgg11-bn --compression=0.0 --lr-drops 30 60 80 --norm-fix=True
+        CUDA_VISIBLE_DEVICES=1 python3 main.py --experiment=singleshot --momentum=0.9 --lr=0.1 --train-batch-size=128 --weight-decay=wd --pre-epochs=100 --post-epochs=0 --pruner=mag --prune-epochs=0 --gpu=0 --result-dir=../Results_Noether --expid=tinyimagenet_lottery_momentum0.9_100epochs_vgg11_fixed_bn_lr0.1_wd${wd}_seed0 --seed=0 --dataset=tiny-imagenet --model-class=tinyimagenet --model=vgg11-bn --compression=0.0 --lr-drops 30 60 80 --norm-fix=True
 done
 
 for wd in 0.00001 0.0000316 0.0001 0.000316; do
-        CUDA_VISIBLE_DEVICES=3 python3 main.py --experiment=singleshot --momentum=0.9 --lr=0.1 --train-batch-size=128 --weight-decay=wd --pre-epochs=100 --post-epochs=0 --pruner=mag --prune-epochs=0 --gpu=0 --result-dir=../Results_Noether --expid=tinyimagenet_lottery_momentum0.9_100epochs_vgg11_fixed_bn_lr0.1_wd${wd}_seed10 --seed=10 --dataset=tiny-imagenet --model-class=tinyimagenet --model=vgg11-bn --compression=0.0 --lr-drops 30 60 80 --norm-fix=True
+        CUDA_VISIBLE_DEVICES=1 python3 main.py --experiment=singleshot --momentum=0.9 --lr=0.1 --train-batch-size=128 --weight-decay=wd --pre-epochs=100 --post-epochs=0 --pruner=mag --prune-epochs=0 --gpu=0 --result-dir=../Results_Noether --expid=tinyimagenet_lottery_momentum0.9_100epochs_vgg11_fixed_bn_lr0.1_wd${wd}_seed10 --seed=10 --dataset=tiny-imagenet --model-class=tinyimagenet --model=vgg11-bn --compression=0.0 --lr-drops 30 60 80 --norm-fix=True
 done
 
 for wd in 0.00001 0.0000316 0.0001 0.000316; do
-        CUDA_VISIBLE_DEVICES=3 python3 main.py --experiment=singleshot --momentum=0.9 --lr=0.1 --train-batch-size=128 --weight-decay=wd --pre-epochs=100 --post-epochs=0 --pruner=mag --prune-epochs=0 --gpu=0 --result-dir=../Results_Noether --expid=tinyimagenet_lottery_momentum0.9_100epochs_vgg11_fixed_bn_lr0.1_wd${wd}_seed100 --seed=100 --dataset=tiny-imagenet --model-class=tinyimagenet --model=vgg11-bn --compression=0.0 --lr-drops 30 60 80 --norm-fix=True
+        CUDA_VISIBLE_DEVICES=1 python3 main.py --experiment=singleshot --momentum=0.9 --lr=0.1 --train-batch-size=128 --weight-decay=wd --pre-epochs=100 --post-epochs=0 --pruner=mag --prune-epochs=0 --gpu=0 --result-dir=../Results_Noether --expid=tinyimagenet_lottery_momentum0.9_100epochs_vgg11_fixed_bn_lr0.1_wd${wd}_seed100 --seed=100 --dataset=tiny-imagenet --model-class=tinyimagenet --model=vgg11-bn --compression=0.0 --lr-drops 30 60 80 --norm-fix=True
 done
