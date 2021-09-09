@@ -1,3 +1,0 @@
-for wd in 0.0 0.00001 0.00001584 0.00002511 0.00003981071 0.00006309 0.0001 0.0001584 0.0002511 0.0003981 0.0006309; do
-        CUDA_VISIBLE_DEVICES=0 python3 main.py --experiment=singleshot --momentum=0.9 --lr=0.1 --train-batch-size=128 --weight-decay=$wd --pre-epochs=100 --post-epochs=0 --pruner=mag --prune-epochs=0 --gpu=0 --result-dir=../Results_Noether  --expid=tinyimagenet_lottery_momentum0.9_100epochs_vgg11_bn_lr0.1_wd${wd}_seed1 --seed=1 --dataset=tiny-imagenet --model-class=tinyimagenet --model=vgg11-bn --compression=0.0 --lr-drops 30 60 80
-done
